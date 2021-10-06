@@ -1,18 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Types;
 
-public class WarriorData : MonoBehaviour
+
+[CreateAssetMenu(fileName = "New Warrior Data", menuName = "Character Data/Warrior")]
+public class WarriorData : CharacterData
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public WarriorClassType clasType;
+    public WarriorWpnType wpnType;
 }
