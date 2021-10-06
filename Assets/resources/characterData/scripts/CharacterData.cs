@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterData : MonoBehaviour
+public class CharacterData : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject prefab;
+    public float maxHealth;
+    public float maxEnergy;
+    public float critChance;
+    public float power;
+    public string name;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
