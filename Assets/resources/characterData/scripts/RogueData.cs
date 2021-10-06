@@ -1,18 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Types;
 
-public class RogueData : MonoBehaviour
+[CreateAssetMenu(fileName = "New Rogue Data", menuName = "Character Data/Rogue")]
+public class RogueData : CharacterData
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public RogueWpnType wpnType;
+    public RogueStrategyType strategyType;
 }
