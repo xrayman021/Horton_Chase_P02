@@ -2,17 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Types : MonoBehaviour
+namespace Types
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum MageDmgType
     {
-        
+        FIRE,
+        ICE
     }
 
-    // Update is called once per frame
-    void Update()
+    public enum MageWpnType
     {
-        
+        STAFF,
+        WAND
+    }
+
+    public enum WarriorClassType
+    {
+        DEFENDER,
+        BERSERKER
+    }
+
+    public enum WarriorWpnType
+    {
+        ONE_HANDED_SWORD,
+        TWO_HANDED_SWORD,
+        DUAL_WIELDED_SWORDS
+    }
+
+    public enum RogueWpnType
+    {
+        DAGGERS,
+        BOW
+    }
+
+    public enum RogueStrategyType
+    {
+        STEALTH,
+        SPEED
     }
 }
