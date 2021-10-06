@@ -1,18 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor; //Won't be in final build
 
-public class NewBehaviourScript : MonoBehaviour
+public class EnemyDesignerWindow : EditorWindow
 {
-    // Start is called before the first frame update
-    void Start()
+    [MenuItem("Window/Enemy Designer")]
+    static void OpenWindow()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        EnemyDesignerWindow window = (EnemyDesignerWindow)GetWindow(typeof(EnemyDesignerWindow));
+        window.minSize = new Vector2(600, 300);
+        window.Show();
     }
 }
