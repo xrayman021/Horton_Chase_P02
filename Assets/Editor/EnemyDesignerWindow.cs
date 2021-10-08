@@ -40,7 +40,7 @@ public class EnemyDesignerWindow : EditorWindow
 
         mageSectionTexture = Resources.Load<Texture2D>("icons/editor_mage_gradient");
         warriorSectionTexture = Resources.Load<Texture2D>("icons/editor_warrior_gradient");
-        rogueSectionTexture = Resources.Load<Texture2D>("icons/rogue");
+        rogueSectionTexture = Resources.Load<Texture2D>("icons/editor_rogue_gradient");
 
     }
 
@@ -94,16 +94,31 @@ public class EnemyDesignerWindow : EditorWindow
 
     void DrawMageSettings()
     {
+        GUILayout.BeginArea(mageSection);
 
+
+
+
+        GUILayout.EndArea();
     }
 
     void DrawWarriorSettings()
     {
+        GUILayout.BeginArea(warriorSection);
 
+
+
+
+        GUILayout.EndArea();
     }
 
     void DrawRogueSettings()
     {
+        GUILayout.BeginArea(rogueSection);
 
+
+
+
+        GUILayout.EndArea();
     }
 }
