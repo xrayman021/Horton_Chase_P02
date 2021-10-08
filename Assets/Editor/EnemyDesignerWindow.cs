@@ -37,6 +37,8 @@ public class EnemyDesignerWindow : EditorWindow
         headerSectionTexture = new Texture2D(1, 1);
         headerSectionTexture.SetPixel(0, 0, headerSectionColor);
         headerSectionTexture.Apply();
+
+        //mageSectionTexture = Resources.Load
     }
 
     void OnGUI()
