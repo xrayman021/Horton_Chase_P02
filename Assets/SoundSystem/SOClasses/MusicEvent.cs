@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
-public class MusicEvent : MonoBehaviour
+public enum LayerType
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Additive,
+    Single
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+[CreateAssetMenu(menuName = "SoundSystem/Music Event", fileName = "MUS_")]
+public class MusicEvent : ScriptableObject
+{
+    [SerializeField] AudioClip[] _musicLayers;
+
+    [SerializeField] LayerType _layerType = LayerType.Additive;
+
+    [SerializeField] AudioMixerGroup _mixer;
+
+    public AudioClip[] MusicLayers => _musicLayers;
+    public LayerType LayerType => _layerType;
+    public AudioMixerGroup Mixer => _mixer;
 }
