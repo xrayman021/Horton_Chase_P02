@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52f873a4029eeb245bcc916d476a4f1e, type: 3}
   m_Name: MUS_Song02
   m_EditorClassIdentifier: 
-  _musicLayers: []
+  _musicLayers:
+  - {fileID: 8300000, guid: 4cc8ea916bf7a6349a31a6166792dbbc, type: 3}
+  - {fileID: 8300000, guid: a191108b8652b5d4faa3f0b881b07dab, type: 3}
+  - {fileID: 8300000, guid: 4f5c372f734b29d4a87ee2f7f22785c4, type: 3}
   _layerType: 0
   _mixer: {fileID: 1536163039821932240, guid: 9774a7d58226018469b3bb6d0f3e5641, type: 2}
