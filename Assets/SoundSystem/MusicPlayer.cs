@@ -27,6 +27,14 @@ namespace SoundSystem
         public void Play(MusicEvent musicEvent, float fadeTime)
         {
             Debug.Log("Play Music");
+            for(int i = 0; i < _layerSources.Count && (i < musicEvent.MusicLayers.Length); i++)
+            {
+                if(musicEvent.MusicLayers[i] != null)
+                {
+                    _layerSources[i].clip = musicEvent.MusicLayers[i];
+                    _layerSources[i].Play();
+                }
+            }
         }
     }
 }
