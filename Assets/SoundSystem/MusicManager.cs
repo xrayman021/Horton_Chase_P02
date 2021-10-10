@@ -10,6 +10,18 @@ namespace SoundSystem
 
         public const int MaxLayerCount = 3;
 
+        float _volume = 1;
+        public float Volume
+        {
+            get => _volume;
+            private set
+            {
+                value = Mathf.Clamp(value, 0, 1);
+                _volume = value;
+            }
+        } 
+            
+
         private static MusicManager _instance;
         public static MusicManager Instance
         {
