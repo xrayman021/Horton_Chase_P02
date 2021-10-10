@@ -2,17 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicPlayer : MonoBehaviour
+namespace SoundSystem
 {
-    // Start is called before the first frame update
-    void Start()
+    public class MusicPlayer : MonoBehaviour
     {
-        
-    }
+        List<AudioSource> _layerSources = new List<AudioSource>();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Awake()
+        {
+            CreateLayerSources();
+        }
+
+        void CreateLayerSources()
+        {
+            for (int i = 0; i < MusicManager.MaxLayerCount; i++)
+            {
+                _layerSources.Add(gameObject.AddComponent<AudioSource>());
+
+                _layerSources[i].playOnAwake = false;
+                _layerSources[i].loop = true;
+            }
+        }
+
+        public void Play(MusicEvent musicEvent, float fadeTime)
+        {
+            Debug.Log("Play Music");
+        }
     }
 }

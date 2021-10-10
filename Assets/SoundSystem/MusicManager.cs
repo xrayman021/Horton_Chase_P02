@@ -6,7 +6,9 @@ namespace SoundSystem
 {
     public class MusicManager : MonoBehaviour
     {
-        AudioSource _audioSource;
+        MusicPlayer _musicPlayer;
+
+        public const int MaxLayerCount = 3;
 
         private static MusicManager _instance;
         public static MusicManager Instance
@@ -43,14 +45,15 @@ namespace SoundSystem
 
         void SetupMusicPlayers()
         {
-            _audioSource = gameObject.AddComponent<AudioSource>();
+            _musicPlayer = gameObject.AddComponent<MusicPlayer>();
         }
 
         public void PlayMusic(MusicEvent musicEvent, float fadeTime)
         {
-            Debug.Log("Play Music");
-            _audioSource.clip = musicEvent.MusicLayers[0];
-            _audioSource.Play();
+            
+            _musicPlayer.Play(musicEvent, fadeTime);
+            //_musicPlayer.clip = musicEvent.MusicLayers[0];
+            //_musicPlayer.Play();
         }
 
 
