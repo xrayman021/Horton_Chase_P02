@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _songA: {fileID: 11400000, guid: f981c82acb3a7da43adecc918243c474, type: 2}
+  _songB: {fileID: 11400000, guid: aebb2fd27e3688a4dae27867d8c19f79, type: 2}
 --- !u!4 &498168663
 Transform:
   m_ObjectHideFlags: 0
