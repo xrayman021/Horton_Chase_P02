@@ -9,7 +9,16 @@ namespace SoundSystem
         int _activeLayerIndex = 0;
         public int ActiveLayerIndex => _activeLayerIndex;
 
-        MusicPlayer _musicPlayer;
+        MusicPlayer _musicPlayer1;
+        MusicPlayer _musicPlayer2;
+
+        bool _isMusicPlayer1Playing = false;
+
+
+        public MusicPlayer ActivePlayer => (_isMusicPlayer1Playing) ? _musicPlayer1 : _musicPlayer2;
+        public MusicPlayer InActivePlayer => (_isMusicPlayer1Playing) ? _musicPlayer2 : _musicPlayer1;
+
+        MusicEvent _activeMusicEvent;
 
         public const int MaxLayerCount = 3;
 
@@ -60,24 +69,37 @@ namespace SoundSystem
 
         void SetupMusicPlayers()
         {
-            _musicPlayer = gameObject.AddComponent<MusicPlayer>();
+            _musicPlayer1 = gameObject.AddComponent<MusicPlayer>();
+            _musicPlayer2 = gameObject.AddComponent<MusicPlayer>();
         }
 
         public void PlayMusic(MusicEvent musicEvent, float fadeTime)
         {
-            if(musicEvent == null)
-            {
-                return;
-            }
-            
-            _musicPlayer.Play(musicEvent, fadeTime);
+            if (musicEvent == null) return;
+            if (musicEvent == _activeMusicEvent) return;
+
+            if(_activeMusicEvent != null)
+            ActivePlayer.Stop(fadeTime);
+
+
+            _activeMusicEvent = musicEvent;
+            _isMusicPlayer1Playing = !_isMusicPlayer1Playing;
+
+
+
+
+            ActivePlayer.Play(musicEvent, fadeTime);
             //_musicPlayer.clip = musicEvent.MusicLayers[0];
             //_musicPlayer.Play();
         }
 
         public void StopMusic(float fadeTime)
         {
-            _musicPlayer.Stop(fadeTime);
+            if (_activeMusicEvent != null)
+                return;
+
+
+            ActivePlayer.Stop(fadeTime);
         }
 
         public void IncreaseLayerIndex(float fadeTime)
@@ -91,7 +113,7 @@ namespace SoundSystem
             }
 
             _activeLayerIndex = newLayerIndex;
-            _musicPlayer.FadeVolume(Volume, fadeTime);
+            ActivePlayer.FadeVolume(Volume, fadeTime);
         }
 
         public void DecreaseLayerIndex(float fadeTime)
@@ -105,7 +127,7 @@ namespace SoundSystem
             }
 
             _activeLayerIndex = newLayerIndex;
-            _musicPlayer.FadeVolume(Volume, fadeTime);
+            ActivePlayer.FadeVolume(Volume, fadeTime);
         }
     }
 }
