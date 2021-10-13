@@ -8,6 +8,7 @@ public class SoundSystemTester : MonoBehaviour
 {
     [SerializeField] MusicEvent _songA;
     [SerializeField] MusicEvent _songB;
+    [SerializeField] MusicEvent _songC;
 
     private void Update()
     {
@@ -19,7 +20,11 @@ public class SoundSystemTester : MonoBehaviour
         {
             _songB.Play(2.5f);
         }
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _songC.Play(2.5f);
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             MusicManager.Instance.DecreaseLayerIndex(5);
         }

@@ -30,6 +30,10 @@ namespace SoundSystem
         public void Play(MusicEvent musicEvent, float fadeTime)
         {
             Debug.Log("Play Music");
+            if(musicEvent == null)
+            {
+                Debug.LogWarning("MusicEvent is empty, cannot play.");
+            }
 
             _musicEvent = musicEvent;
 
@@ -60,11 +64,11 @@ namespace SoundSystem
 
             if(_musicEvent.LayerType == LayerType.Additive)
             {
-                StartCoroutine(LerpSourceAdditiveRoutine(targetVolume, fadeTime));
+                _fadeVolumeRoutine = StartCoroutine(LerpSourceAdditiveRoutine(targetVolume, fadeTime));
             }
             else if (_musicEvent.LayerType == LayerType.Single)
             {
-                StartCoroutine(LerpSourceSingleRoutine());
+               _fadeVolumeRoutine = StartCoroutine(LerpSourceSingleRoutine(targetVolume, fadeTime));
             }
         }
 
@@ -118,9 +122,44 @@ namespace SoundSystem
             }
         }
 
-        IEnumerator LerpSourceSingleRoutine()
+        IEnumerator LerpSourceSingleRoutine(float targetVolume, float fadeTime)
         {
-            yield return null;
+            SaveSourceStartVolumes();
+
+            float newVolume;
+            float startVolume;
+
+            for (float elapsedTime = 0; elapsedTime <= fadeTime; elapsedTime += Time.deltaTime)
+            {
+                for (int i = 0; i < _layerSources.Count; i++)
+                {
+                    if (i == MusicManager.Instance.ActiveLayerIndex)
+                    {
+                        startVolume = _sourceStartVolumes[i];
+                        newVolume = Mathf.Lerp(startVolume, targetVolume, elapsedTime / fadeTime);
+                        _layerSources[i].volume = newVolume;
+                    }
+                    else
+                    {
+                        startVolume = _sourceStartVolumes[i];
+                        newVolume = Mathf.Lerp(startVolume, 0, elapsedTime / fadeTime);
+                        _layerSources[i].volume = newVolume;
+                    }
+                }
+                yield return null;
+
+            }
+            for (int i = 0; i < _layerSources.Count; i++)
+            {
+                if (i == MusicManager.Instance.ActiveLayerIndex)
+                {
+                    _layerSources[i].volume = targetVolume;
+                }
+                else
+                {
+                    _layerSources[i].volume = 0;
+                }
+            }
         }
     }
 }
