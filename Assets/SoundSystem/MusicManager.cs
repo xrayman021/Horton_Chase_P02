@@ -6,6 +6,9 @@ namespace SoundSystem
 {
     public class MusicManager : MonoBehaviour
     {
+        int _activeLayerIndex = 0;
+        public int ActiveLayerIndex => _activeLayerIndex;
+
         MusicPlayer _musicPlayer;
 
         public const int MaxLayerCount = 3;
@@ -68,6 +71,32 @@ namespace SoundSystem
             //_musicPlayer.Play();
         }
 
+        public void IncreaseLayerIndex(float fadeTime)
+        {
+            int newLayerIndex = _activeLayerIndex + 1;
+            newLayerIndex = Mathf.Clamp(newLayerIndex, 0, MaxLayerCount - 1);
 
+            if(newLayerIndex == _activeLayerIndex)
+            {
+                return;
+            }
+
+            _activeLayerIndex = newLayerIndex;
+            _musicPlayer.FadeVolume(Volume, fadeTime);
+        }
+
+        public void DecreaseLayerIndex(float fadeTime)
+        {
+            int newLayerIndex = _activeLayerIndex - 1;
+            newLayerIndex = Mathf.Clamp(newLayerIndex, 0, MaxLayerCount - 1);
+
+            if (newLayerIndex == _activeLayerIndex)
+            {
+                return;
+            }
+
+            _activeLayerIndex = newLayerIndex;
+            _musicPlayer.FadeVolume(Volume, fadeTime);
+        }
     }
 }

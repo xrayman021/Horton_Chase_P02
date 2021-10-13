@@ -39,6 +39,7 @@ namespace SoundSystem
                 {
                     _layerSources[i].volume = 0;
                     _layerSources[i].clip = musicEvent.MusicLayers[i];
+                    _layerSources[i].outputAudioMixerGroup = musicEvent.Mixer;
                     _layerSources[i].Play();
                 }
             }
@@ -73,16 +74,38 @@ namespace SoundSystem
 
             float newVolume;
             float startVolume;
+
             for (float elapsedTime = 0; elapsedTime <= fadeTime; elapsedTime += Time.deltaTime)
             {
                 for (int i = 0; i < _layerSources.Count; i++)
                 {
-                    startVolume = _sourceStartVolumes[i];
-                    newVolume = Mathf.Lerp(startVolume, targetVolume, elapsedTime / fadeTime);
-                    _layerSources[i].volume = newVolume;
+                    if(i <= MusicManager.Instance.ActiveLayerIndex)
+                    {
+                        startVolume = _sourceStartVolumes[i];
+                        newVolume = Mathf.Lerp(startVolume, targetVolume, elapsedTime / fadeTime);
+                        _layerSources[i].volume = newVolume;
+                    }
+                    else
+                    {
+                        startVolume = _sourceStartVolumes[i];
+                        newVolume = Mathf.Lerp(startVolume, 0, elapsedTime / fadeTime);
+                        _layerSources[i].volume = newVolume;
+                    }
+                    
                 }
                 yield return null;
 
+            }
+            for (int i = 0; i < _layerSources.Count; i++)
+            {
+                if(i < MusicManager.Instance.ActiveLayerIndex)
+                {
+                    _layerSources[i].volume = targetVolume;
+                }
+                else
+                {
+                    _layerSources[i].volume = 0;
+                }
             }
         }
 
