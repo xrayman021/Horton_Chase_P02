@@ -9,7 +9,9 @@ namespace SoundSystem
         List<AudioSource> _layerSources = new List<AudioSource>();
         List<float> _sourceStartVolumes = new List<float>();
         MusicEvent _musicEvent = null;
+
         Coroutine _fadeVolumeRoutine = null;
+        Coroutine _stopRoutine = null;
 
         private void Awake()
         {
@@ -50,6 +52,37 @@ namespace SoundSystem
 
             FadeVolume(MusicManager.Instance.Volume, fadeTime);
         }
+
+        public void Stop(float fadeTime)
+        {
+            if (_stopRoutine != null)
+                StopCoroutine(_stopRoutine);
+            _stopRoutine = StartCoroutine(StopRoutine(fadeTime));
+        }
+
+        IEnumerator StopRoutine(float fadeTime)
+        {
+            if(_fadeVolumeRoutine != null)
+            {
+                StopCoroutine(_fadeVolumeRoutine);
+            }
+            if(_musicEvent.LayerType == LayerType.Additive)
+            {
+                _fadeVolumeRoutine = StartCoroutine(LerpSourceAdditiveRoutine(0, fadeTime));
+            }
+            else if(_musicEvent.LayerType == LayerType.Single)
+            {
+                _fadeVolumeRoutine = StartCoroutine(LerpSourceSingleRoutine(0, fadeTime));
+            }
+
+            yield return _fadeVolumeRoutine;
+
+            foreach(AudioSource source in _layerSources)
+            {
+                source.Stop();
+            }
+        }
+
         public void FadeVolume(float targetVolume, float fadeTime)
         {
             targetVolume = Mathf.Clamp(targetVolume, 0, 1);
