@@ -79,7 +79,10 @@ namespace SoundSystem
             if (musicEvent == _activeMusicEvent) return;
 
             if(_activeMusicEvent != null)
-            ActivePlayer.Stop(fadeTime);
+            {
+                ActivePlayer.Stop(fadeTime);
+            }
+            
 
 
             _activeMusicEvent = musicEvent;
