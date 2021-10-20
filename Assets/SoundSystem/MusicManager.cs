@@ -11,6 +11,7 @@ namespace SoundSystem
 
         MusicPlayer _musicPlayer1;
         MusicPlayer _musicPlayer2;
+        
 
         bool _isMusicPlayer1Playing = false;
 
@@ -71,6 +72,7 @@ namespace SoundSystem
         {
             _musicPlayer1 = gameObject.AddComponent<MusicPlayer>();
             _musicPlayer2 = gameObject.AddComponent<MusicPlayer>();
+            
         }
 
         public void PlayMusic(MusicEvent musicEvent, float fadeTime)
@@ -83,8 +85,6 @@ namespace SoundSystem
                 ActivePlayer.Stop(fadeTime);
             }
             
-
-
             _activeMusicEvent = musicEvent;
             _isMusicPlayer1Playing = !_isMusicPlayer1Playing;
 
@@ -99,7 +99,7 @@ namespace SoundSystem
             if (_activeMusicEvent != null)
                 return;
 
-
+            _activeMusicEvent = null;
             ActivePlayer.Stop(fadeTime);
         }
 

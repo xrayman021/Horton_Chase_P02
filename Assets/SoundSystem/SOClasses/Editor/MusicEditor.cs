@@ -2,14 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 namespace SoundSystem
 {
     [CustomEditor(typeof(MusicEvent), true)]
     public class MusicEditor : Editor
     {
+        [MenuItem("Window/Music Event")]
+        public static void ShowWindow()
+        {
+            GetWindow<MusicEditor>("MusicEditor");
+        }
+
+        private static void GetWindow<T>(string v)
+        {
+            throw new NotImplementedException();
+        }
 
         [SerializeField] private AudioSource _previewer;
+
+        private void OnGUI()
+        {
+            GUILayout.Label("This is a label.", EditorStyles.boldLabel);
+        }
 
         public void OnEnable()
         {

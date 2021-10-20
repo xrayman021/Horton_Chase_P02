@@ -35,6 +35,7 @@ namespace SoundSystem
             if(musicEvent == null)
             {
                 Debug.LogWarning("MusicEvent is empty, cannot play.");
+                return;
             }
 
             _musicEvent = musicEvent;
