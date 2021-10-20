@@ -6,7 +6,7 @@ using UnityEditor;
 namespace SoundSystem
 {
     [CustomEditor(typeof(MusicEvent), true)]
-    public class SoundEventEditor : Editor
+    public class MusicEditor : Editor
     {
 
         [SerializeField] private AudioSource _previewer;

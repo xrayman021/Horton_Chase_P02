@@ -89,8 +89,6 @@ namespace SoundSystem
             _isMusicPlayer1Playing = !_isMusicPlayer1Playing;
 
 
-
-
             ActivePlayer.Play(musicEvent, fadeTime);
             //_musicPlayer.clip = musicEvent.MusicLayers[0];
             //_musicPlayer.Play();
