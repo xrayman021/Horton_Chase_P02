@@ -9,23 +9,12 @@ namespace SoundSystem
     [CustomEditor(typeof(MusicEvent), true)]
     public class MusicEditor : Editor
     {
-        [MenuItem("Window/Music Event")]
-        public static void ShowWindow()
-        {
-            GetWindow<MusicEditor>("MusicEditor");
-        }
-
-        private static void GetWindow<T>(string v)
-        {
-            throw new NotImplementedException();
-        }
+        
+        
 
         [SerializeField] private AudioSource _previewer;
 
-        private void OnGUI()
-        {
-            GUILayout.Label("This is a label.", EditorStyles.boldLabel);
-        }
+        
 
         public void OnEnable()
         {
@@ -54,10 +43,6 @@ namespace SoundSystem
 
             GUILayout.Space(20);
 
-            if (GUILayout.Button("Preview"))
-            {
-                ((MusicEvent)target).Preview(_previewer);
-            }
             EditorGUI.EndDisabledGroup();
         }
     }

@@ -23,7 +23,6 @@ namespace SoundSystem
             for (int i = 0; i < MusicManager.MaxLayerCount; i++)
             {
                 _layerSources.Add(gameObject.AddComponent<AudioSource>());
-
                 _layerSources[i].playOnAwake = false;
                 _layerSources[i].loop = true;
             }
@@ -31,18 +30,18 @@ namespace SoundSystem
 
         public void Play(MusicEvent musicEvent, float fadeTime)
         {
-            Debug.Log("Play Music");
-            if(musicEvent == null)
+            if (musicEvent == null)
             {
-                Debug.LogWarning("MusicEvent is empty, cannot play.");
+                Debug.LogWarning("MusicEvent is empty, cannot play!");
                 return;
             }
 
             _musicEvent = musicEvent;
 
-            for(int i = 0; i < _layerSources.Count && (i < musicEvent.MusicLayers.Length); i++)
+            for (int i = 0; i < _layerSources.Count
+                && (i < musicEvent.MusicLayers.Length); i++)
             {
-                if(musicEvent.MusicLayers[i] != null)
+                if (musicEvent.MusicLayers[i] != null)
                 {
                     _layerSources[i].volume = 0;
                     _layerSources[i].clip = musicEvent.MusicLayers[i];
@@ -63,22 +62,20 @@ namespace SoundSystem
 
         IEnumerator StopRoutine(float fadeTime)
         {
-            if(_fadeVolumeRoutine != null)
-            {
+            if (_fadeVolumeRoutine != null)
                 StopCoroutine(_fadeVolumeRoutine);
-            }
-            if(_musicEvent.LayerType == LayerType.Additive)
+
+            if (_musicEvent.LayerType == LayerType.Additive)
             {
                 _fadeVolumeRoutine = StartCoroutine(LerpSourceAdditiveRoutine(0, fadeTime));
             }
-            else if(_musicEvent.LayerType == LayerType.Single)
+            else if (_musicEvent.LayerType == LayerType.Single)
             {
                 _fadeVolumeRoutine = StartCoroutine(LerpSourceSingleRoutine(0, fadeTime));
             }
 
             yield return _fadeVolumeRoutine;
-
-            foreach(AudioSource source in _layerSources)
+            foreach (AudioSource source in _layerSources)
             {
                 source.Stop();
             }
@@ -87,22 +84,19 @@ namespace SoundSystem
         public void FadeVolume(float targetVolume, float fadeTime)
         {
             targetVolume = Mathf.Clamp(targetVolume, 0, 1);
-            if(fadeTime < 0)
-            {
-                fadeTime = 0;
-            }
-            if(_fadeVolumeRoutine != null)
-            {
-                StopCoroutine(_fadeVolumeRoutine);
-            }
+            if (fadeTime < 0) fadeTime = 0;
 
-            if(_musicEvent.LayerType == LayerType.Additive)
+            if (_fadeVolumeRoutine != null)
+                StopCoroutine(_fadeVolumeRoutine);
+
+            if (_musicEvent.LayerType == LayerType.Additive)
             {
-                _fadeVolumeRoutine = StartCoroutine(LerpSourceAdditiveRoutine(targetVolume, fadeTime));
+                _fadeVolumeRoutine = StartCoroutine
+                    (LerpSourceAdditiveRoutine(targetVolume, fadeTime));
             }
             else if (_musicEvent.LayerType == LayerType.Single)
             {
-               _fadeVolumeRoutine = StartCoroutine(LerpSourceSingleRoutine(targetVolume, fadeTime));
+                _fadeVolumeRoutine = StartCoroutine(LerpSourceSingleRoutine(targetVolume, fadeTime));
             }
         }
 
@@ -117,7 +111,7 @@ namespace SoundSystem
             {
                 for (int i = 0; i < _layerSources.Count; i++)
                 {
-                    if(i <= MusicManager.Instance.ActiveLayerIndex)
+                    if (i <= MusicManager.Instance.ActiveLayerIndex)
                     {
                         startVolume = _sourceStartVolumes[i];
                         newVolume = Mathf.Lerp(startVolume, targetVolume, elapsedTime / fadeTime);
@@ -129,14 +123,13 @@ namespace SoundSystem
                         newVolume = Mathf.Lerp(startVolume, 0, elapsedTime / fadeTime);
                         _layerSources[i].volume = newVolume;
                     }
-                    
                 }
-                yield return null;
 
+                yield return null;
             }
             for (int i = 0; i < _layerSources.Count; i++)
             {
-                if(i < MusicManager.Instance.ActiveLayerIndex)
+                if (i <= MusicManager.Instance.ActiveLayerIndex)
                 {
                     _layerSources[i].volume = targetVolume;
                 }
@@ -180,8 +173,8 @@ namespace SoundSystem
                         _layerSources[i].volume = newVolume;
                     }
                 }
-                yield return null;
 
+                yield return null;
             }
             for (int i = 0; i < _layerSources.Count; i++)
             {
@@ -197,3 +190,4 @@ namespace SoundSystem
         }
     }
 }
+

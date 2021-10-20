@@ -34,10 +34,5 @@ namespace SoundSystem
         {
             MusicManager.Instance.PlayMusic(this, fadeTime);
         }
-
-        public void Preview (AudioSource source)
-        {
-            
-        }
     }
 }
